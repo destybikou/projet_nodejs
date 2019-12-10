@@ -1,23 +1,25 @@
-const http = require('http');
+const express = require('express');
+const app = express();
 
 const hostname = '0.0.0.0';
 const port = 3000;
 
-const server = http.createServer((req, res) => {
-  res.statusCode = 200;
-  res.setHeader('Content-Type', 'text/plain');
-  // res.end('Hello World');
+app.get('/', (req, res) => {
+  res.type('html');
+  res.status(200);
+  res.end("Home");
+})
 
-  let {url} = req;
-  // let url = req.url
+app.get('/posts', (req, res) => {
+  res.type('html');
+  res.status(200);
+  res.end("Liste des articles");
+})
 
-  if(url === "/"){
-    res.end("Home")
-  }
-  else if(url === "/posts"){
-    res.send("liste des articles")
-  }
-  
-});
+app.get('/posts/:id', (req, res) => {
+  res.type('html');
+  res.status(200);
+  res.end("Article : " + req.params.id);
+})
 
-server.listen(port, hostname);
+app.listen(port, hostname);
