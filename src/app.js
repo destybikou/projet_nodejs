@@ -4,22 +4,23 @@ const app = express();
 const hostname = '0.0.0.0';
 const port = 3000;
 
-app.get('/', (req, res) => {
-  res.type('html');
-  res.status(200);
-  res.end("Home");
-})
+const mongoose = require('mongoose');
+mongoose.Promise = global.Promise;
+const mongooseParams = {
+  useUnifiedTopology : true,
+  useNewUrlParser: true,
+  useCreateIndex: true
+}
+mongoose.connect('mongodb://mongo/apinodeipssi', mongooseParams); // docker (mongo = nom du container)
+// mongoose.connect('mongodb://localhost:27017/apinodeipssi', mongooseParams); // windows
 
-app.get('/posts', (req, res) => {
-  res.type('html');
-  res.status(200);
-  res.end("Liste des articles");
-})
+const bodyParser = require('body-parser');
+app.use(bodyParser.urlencoded( { extended: true } ));
+app.use(bodyParser.json())
 
-app.get('/posts/:id', (req, res) => {
-  res.type('html');
-  res.status(200);
-  res.end("Article : " + req.params.id);
-})
+const postModel = require('./api/models/postModel');
+
+const postRoute = require('./api/routes/postRoute');
+postRoute(app);
 
 app.listen(port, hostname);
