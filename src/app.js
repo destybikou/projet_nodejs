@@ -12,7 +12,7 @@ const mongooseParams = {
   useCreateIndex: true
 }
 mongoose.connect('mongodb://mongo/apinodeipssi', mongooseParams); // docker (mongo = nom du container)
-// mongoose.connect('mongodb://localhost:27017/apinodeipssi', mongooseParams); // windows
+// mongoose.connect('mongodb://localhost:27017/apinodeipssi', mongooseParams); // windows sans docker
 
 const bodyParser = require('body-parser');
 app.use(bodyParser.urlencoded( { extended: true } ));
