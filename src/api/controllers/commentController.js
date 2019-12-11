@@ -1,9 +1,9 @@
 const mongoose = require('mongoose');
-const postModel = require('../models/postModel');
-const Post = mongoose.model("Post");
+const commentModel = require('../models/commentModel');
+const Comment = mongoose.model("Comment");
 
-exports.list_all_posts = (req, res) => {
-  Post.find({}, (error, posts) => {
+exports.get_all_comments = (req, res) => {
+  Comment.find({post_id: req.params.post_id}, (error, posts) => {
     if(error){
       res.status(500);
       console.log(error);
@@ -16,10 +16,11 @@ exports.list_all_posts = (req, res) => {
   })
 }
 
-exports.create_a_post = (req, res) => {
-  let new_post = new Post(req.body);
+exports.create_a_comment = (req, res) => {
+  req.body.post_id = req.params.post_id;
+  let new_comment = new Comment(req.body);
 
-  new_post.save((error, post) => {
+  new_comment.save((error, post) => {
     if(error){
       res.status(500);
       console.log(error);
@@ -32,8 +33,8 @@ exports.create_a_post = (req, res) => {
   })
 }
 
-exports.get_a_post = (req, res) => {
-  Post.findById(req.params.post_id, (error, post) => {
+exports.get_a_comment = (req, res) => {
+  Comment.findById(req.params.comment_id, (error, comment) => {
     if(error){
       res.status(500);
       console.log(error);
@@ -41,13 +42,13 @@ exports.get_a_post = (req, res) => {
     }
     else {
       res.status(200);
-      res.json(post);
+      res.json(comment);
     }
   })
 }
 
-exports.update_a_post = (req, res) => {
-  Post.findOneAndUpdate({_id: req.params.post_id}, req.body, {new: true}, (error, post) => {
+exports.update_a_comment = (req, res) => {
+  Comment.findOneAndUpdate({_id: req.params.comment_id}, req.body, {new: true}, (error, comment) => {
     if(error){
       res.status(500);
       console.log(error);
@@ -55,13 +56,13 @@ exports.update_a_post = (req, res) => {
     }
     else {
       res.status(200);
-      res.json(post);
+      res.json(comment);
     }
   })
 }
 
-exports.delete_a_post = (req, res) => {
-  Post.remove({_id: req.params.post_id}, (error) => {
+exports.delete_a_comment = (req, res) => {
+  Comment.remove({_id: req.params.comment_id}, (error) => {
     if(error){
       res.status(500);
       console.log(error);
@@ -69,7 +70,7 @@ exports.delete_a_post = (req, res) => {
     }
     else {
       res.status(200);
-      res.json({message: "Article supprimé"});
+      res.json({message: "Commentaires supprimé"});
     }
   })
 }

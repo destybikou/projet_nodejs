@@ -18,9 +18,9 @@ const bodyParser = require('body-parser');
 app.use(bodyParser.urlencoded( { extended: true } ));
 app.use(bodyParser.json())
 
-const postModel = require('./api/models/postModel');
-
 const postRoute = require('./api/routes/postRoute');
+const commentRoute = require('./api/routes/commentRoute');
 postRoute(app);
+commentRoute(app);
 
 app.listen(port, hostname);
