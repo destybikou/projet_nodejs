@@ -5,7 +5,7 @@ const hostname = '0.0.0.0';
 const port = 3000;
 
 const mongoose = require('mongoose');
-mongoose.Promise = global.Promise;
+
 const mongooseParams = {
   useUnifiedTopology : true,
   useNewUrlParser: true,
