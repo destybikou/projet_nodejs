@@ -12,3 +12,6 @@ docker-compose up
 ```
 docker exec -ti project_api_node bash
 ```
+
+## Project
+This is an example project. This is not secure to us.

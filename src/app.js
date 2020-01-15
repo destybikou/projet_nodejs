@@ -20,7 +20,9 @@ app.use(bodyParser.json())
 
 const postRoute = require('./api/routes/postRoute');
 const commentRoute = require('./api/routes/commentRoute');
+const userRoute = require('./api/routes/userRoute');
 postRoute(app);
 commentRoute(app);
+userRoute(app);
 
 app.listen(port, hostname);
